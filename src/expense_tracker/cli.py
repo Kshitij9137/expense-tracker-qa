@@ -1,5 +1,6 @@
 """Presentation layer: command-line interface built with argparse."""
 import argparse
+import sqlite3
 import sys
 from datetime import date
 
@@ -55,9 +56,10 @@ def build_parser() -> argparse.ArgumentParser:
 def run(argv=None, out=None) -> int:
     out = out or sys.stdout
     args = build_parser().parse_args(argv)
-    conn = connect(args.db)
-    svc = ExpenseService(conn)
+    conn = None
     try:
+        conn = connect(args.db)
+        svc = ExpenseService(conn)
         if args.command == "add":
             e = svc.add_expense(args.amount, args.category, args.date, args.note)
             print(f"Added #{e.id}: {format_money(e.amount_cents)} on {e.category} ({e.spent_on})", file=out)
@@ -93,11 +95,15 @@ def run(argv=None, out=None) -> int:
     except (ValidationError, KeyError) as exc:
         print(f"Error: {exc.args[0]}", file=sys.stderr)
         return 1
+    except sqlite3.Error as exc:
+        print(f"Error: database problem - {exc}", file=sys.stderr)
+        return 1
     except OSError as exc:
         print(f"Error: file problem - {exc.strerror or exc}", file=sys.stderr)
         return 1
     finally:
-        conn.close()
+        if conn is not None:
+            conn.close()
 
 
 def main():

@@ -72,6 +72,15 @@ class SystemTests(unittest.TestCase):
                            capture_output=True, text=True, env=ENV, cwd=ROOT)
         self.assertIn("No expenses found", p.stdout)
 
+    def test_st07_invalid_database_path_is_reported_without_traceback(self):
+        """ST-07 Invalid database path prints a clear error without a traceback"""
+        bad_db = os.path.join(self.tmp.name, "missing", "expense.db")
+        p = subprocess.run([sys.executable, "-m", "expense_tracker", "--db", bad_db, "list"],
+                           capture_output=True, text=True, env=ENV, cwd=ROOT)
+        self.assertEqual((p.returncode, p.stdout), (1, ""))
+        self.assertIn("Error: database problem", p.stderr)
+        self.assertNotIn("Traceback", p.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

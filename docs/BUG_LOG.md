@@ -11,6 +11,7 @@ Found by exploratory testing and edge-case analysis. Every bug is fixed and has 
 | BUG-005 | Medium | `export /nonexistent_dir/o.csv` | Crash: `FileNotFoundError` traceback | Clear error message | OSError not handled in the CLI | Catch `OSError`, print `Error: file problem - ...`, exit 1 | REG-05 |
 | BUG-006 | Low | `update 1` (no options) | Printed "Updated #1" although nothing changed | Error explaining what to provide | No check that at least one field was given | Raise `ValidationError` | REG-06 |
 | BUG-007 | Low | `list --start 2026-12-01 --end 2026-01-01` | "No expenses found." (misleading) | Error: start after end | Reversed ranges not validated | `_check_range()` helper | REG-07 |
+| BUG-008 | Medium | `--db missing_dir/expense.db list` | SQLite traceback while opening the database | Clear error message and exit code 1 | `connect()` ran before the CLI error handler | Catch `sqlite3.Error` and close only an opened connection | ST-07 |
 
 ## Debugging approach
 1. Reproduce the failure with the exact command.

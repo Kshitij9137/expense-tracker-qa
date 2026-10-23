@@ -62,7 +62,8 @@ class CliExtraTests(CliIntegrationTests):
         code, out = self.cli("export", path)
         self.assertIn("Exported 1", out)
         self.assertTrue(os.path.exists(path))
-        self.assertIn("9.00", open(path).read())
+        with open(path, encoding="utf-8") as fh:
+            self.assertIn("9.00", fh.read())
 
     def test_it15_summary_with_range_and_budget_status_default(self):
         """IT-15 CLI summary accepts a date range; status works with default month"""

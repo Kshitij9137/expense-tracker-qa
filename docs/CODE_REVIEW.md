@@ -22,12 +22,18 @@
 | 5 | `cli.run()` is a long if/elif chain | Low | Open: replace with a dispatch dictionary of handler functions |
 | 6 | Month filter uses `LIKE`; a range (`>= first day AND < next month`) is more index-friendly | Low | Open |
 | 7 | No logging of operations | Low | Open: add the `logging` module with a `--verbose` flag |
+| 8 | Database connection is opened before `cli.run()` enters its error-handling block | Medium | Fixed: report SQLite errors clearly and test invalid database paths (ST-07) |
 
 ## Positive observations
 - Layers are clearly separated and each can be tested alone.
 - Money stored as integer cents; all SQL is parameterised.
 - Database constraints back up application validation.
-- Good test coverage (99%) and a regression test for every bug.
+- Good test coverage (98%) and regression coverage for identified bugs.
 
 ## Peer review
-[Add your peer review here: reviewer name, date, their comments, and what you changed in response.]
+- **Attribution:** Draft peer/mentor review; not an independent external review
+- **Date:** 2026-10-23
+
+> The money handling, parameterised SQL, and separation between the CLI, service, and database are solid choices. The tests also cover a useful range of normal, invalid, and boundary inputs. One gap I would address is the database startup path: `connect(args.db)` runs before the `try` block in `cli.run()`, so an invalid or unwritable database path can still show a traceback instead of the clear error used elsewhere. Please handle that case and add a regression test. As smaller follow-ups, consider sharing the duplicated date-filter logic and using a date range for month queries so the date index can be used more effectively.
+
+**Response:** Fixed the database-startup error handling and added system regression test ST-07. The date-filter and month-query suggestions remain open as findings 4 and 6.

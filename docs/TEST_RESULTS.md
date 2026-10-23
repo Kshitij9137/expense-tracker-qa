@@ -1,7 +1,7 @@
 # Test Results
 
 Generated: 2026-10-23  
-Total: 64  |  Passed: 64  |  Failed: 0  |  Time: 0.84s
+Total: 65  |  Passed: 65  |  Failed: 0  |  Time: 3.37s
 
 | ID | Test case | Result | File |
 |---|---|---|---|
@@ -50,6 +50,7 @@ Total: 64  |  Passed: 64  |  Failed: 0  |  Time: 0.84s
 | ST-04 | Add expenses, export to CSV, and verify the CSV file | PASS | test_system.py |
 | ST-05 | Errors are written to stderr, nothing on stdout, exit code 1 | PASS | test_system.py |
 | ST-06 | Different --db files do not share data | PASS | test_system.py |
+| ST-07 | Invalid database path prints a clear error without a traceback | PASS | test_system.py |
 | UAT-01 | As a student, I log a week of spending and see where my money went | PASS | test_uat.py |
 | UAT-02 | As a user, I get a clear warning when I overspend a budget | PASS | test_uat.py |
 | UAT-03 | As a user, I can correct a wrongly entered amount and category | PASS | test_uat.py |

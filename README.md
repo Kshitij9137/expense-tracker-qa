@@ -33,7 +33,7 @@ python -m expense_tracker export my_expenses.csv
 ```bash
 python -m unittest discover -s tests -v
 ```
-64 tests across six levels (unit, integration, system, user acceptance, edge case, regression) with 99% coverage. See `docs/TEST_PLAN.md`.
+65 tests across six levels (unit, integration, system, user acceptance, edge case, regression) with 98% coverage. See `docs/TEST_PLAN.md`.
 
 ## Quality assurance
 ```bash
