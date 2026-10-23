@@ -16,7 +16,7 @@ Python 3.8 or newer. No third-party packages are needed.
 
 ## Quick start
 ```bash
-git clone https://github.com/<your-username>/expense-tracker.git
+git clone https://github.com/Kshitij9137/expense-tracker.git
 cd expense-tracker
 export PYTHONPATH=src          # Windows PowerShell: $env:PYTHONPATH="src"
 
@@ -66,4 +66,4 @@ expense-tracker/
 See `docs/ARCHITECTURE.md` for design decisions and `docs/USER_GUIDE.md` for all commands.
 
 ## Author
-[Your Name]
+Kshitij Gupta
