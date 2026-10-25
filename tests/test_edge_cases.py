@@ -133,10 +133,8 @@ class CliErrorHandlingTests(unittest.TestCase):
             self.assertTrue(err.startswith("Error:"), msg=f"{argv}: {err!r}")
             self.assertNotIn("Traceback", err)
 
-
 if __name__ == "__main__":
     unittest.main()
-
 
 class BulkAndRangeTests(unittest.TestCase):
     def setUp(self):
